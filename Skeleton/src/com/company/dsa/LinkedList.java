@@ -172,22 +172,28 @@ public class LinkedList<T> implements List<T> {
     }
 
     private class MyListIterator implements Iterator<T> {
-        int currentIndex;
+        private Node currentNode;
 
-        MyListIterator() {
-            currentIndex = 0;
+        MyListIterator( ) {
+            this.currentNode=head;
+        }
+        MyListIterator(Node node) {
+            this.currentNode=node;
         }
 
         @Override
         public boolean hasNext() {
-            return currentIndex < size;
+            return currentNode!=null;
         }
 
         @Override
         public T next() {
-            T result = head.value;
-            head = head.next;
-            currentIndex++;
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+
+            T result = currentNode.value;
+            currentNode = currentNode.next;
             return result;
         }
 
