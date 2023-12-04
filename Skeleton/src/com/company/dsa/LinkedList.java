@@ -54,17 +54,16 @@ public class LinkedList<T> implements List<T> {
         if (!isIndexInRange(index)) {
             throw new NoSuchElementException();
         }
-        Node prior = head;
-        for (int i = 0; i < index - 1; i++) {
-            prior = prior.next;
-        }
-        Node newNode = new Node(value);
-        if (prior == null) {
-            newNode.next = head;
-            head = newNode;
-            newNode.next = tail;
-            tail = newNode;
-        } else {
+        if(index==0){
+            addFirst(value);
+        } else if(index==size){
+            addLast(value);
+        }else {
+            Node prior = head;
+            for (int i = 0; i < index - 1; i++) {
+                prior = prior.next;
+            }
+            Node newNode = new Node(value);
             Node after = prior.next;
             newNode.next = after;
             if (after != null) {
@@ -72,12 +71,8 @@ public class LinkedList<T> implements List<T> {
             }
             prior.next = newNode;
             newNode.prev = prior;
-            if (newNode.next == null) {
-                tail.next = newNode;
-                tail = newNode;
-            }
+            size++;
         }
-        size++;
     }
 
     @Override
@@ -127,7 +122,11 @@ public class LinkedList<T> implements List<T> {
         }
         T removeValue = head.value;
         head = head.next;
-        //head.prev = null; - should be null,but test hasn't been set up
+        if(size==1){
+            tail=null;
+        }else{
+            head.prev = null;
+        }
         size--;
         return removeValue;
     }
@@ -139,7 +138,11 @@ public class LinkedList<T> implements List<T> {
         }
         T removeValue = tail.value;
         tail = tail.prev;
-        //tail.next = null;- should be null,but test hasn't been set up
+        if(size==1){
+            head=null;
+        }else{
+            tail.next = null;
+        }
         size--;
         return removeValue;
     }

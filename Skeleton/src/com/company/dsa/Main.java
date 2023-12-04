@@ -8,10 +8,12 @@ public class Main {
 //         values.addFirst(6);
 //         values.addFirst(8);
 //         values.addLast(12);
-        values.add(0, 4);
-        values.add(1, 3);
-        values.add(2, 2);
-        values.add(2, 8);
+       values.addFirst(1);
+        values.addLast(2);
+        values.addLast(3);
+        values.addLast(4);
+        values.add(4, 5);
+
         values.removeFirst();
         values.removeLast();
 
